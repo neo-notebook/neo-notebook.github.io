@@ -1,0 +1,21 @@
+# Core dependencies
+feedparser==6.0.11
+requests==2.31.0
+python-dateutil==2.8.2
+pyyaml==6.0.1
+
+# HTML processing
+beautifulsoup4==4.12.3
+bleach==6.1.0
+lxml==5.1.0
+
+# PDF generation
+reportlab==4.1.0
+
+# Testing
+pytest==8.0.0
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# Utilities
+python-dotenv==1.0.1

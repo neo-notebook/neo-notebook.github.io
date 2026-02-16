@@ -1,7 +1,4 @@
-# Git worktrees
-.worktrees/
-
-# Private artifacts (PDFs, drafts, full datasets)
+# Private outputs (never commit)
 private/
 
 # Python
@@ -12,22 +9,25 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 ENV/
-.venv
-*.egg-info/
-dist/
 build/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+dist/
+*.egg-info/
 
 # Environment variables
 .env
 .env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Cache
 cache/
@@ -36,6 +36,5 @@ cache/
 # Logs
 *.log
 
-# OS
-.DS_Store
-Thumbs.db
+# PDFs and artifacts
+*.pdf
