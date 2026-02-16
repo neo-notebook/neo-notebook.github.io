@@ -1,0 +1,19 @@
+# RSS/API Sources Configuration
+# Copy to sources.yaml and customize
+
+sources:
+  # Example Security Blog
+  - name: "Example Security Blog"
+    type: "rss"
+    url: "https://example-security-blog.com/feed.xml"
+    category: "security_research"
+    credibility_tier: "medium"
+    enabled: true
+
+  # Academic Papers - arXiv
+  - name: "arXiv AI Security Research"
+    type: "arxiv"
+    query: "prompt injection OR agent security OR AI safety OR tool use OR agentic OR HITL OR observability"
+    category: "research"
+    credibility_tier: "high"
+    enabled: true

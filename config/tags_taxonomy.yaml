@@ -1,0 +1,144 @@
+# Tags Taxonomy Configuration
+# Tag definitions for content classification and discovery
+
+tags:
+  agentic:
+    id: "agentic"
+    display_name: "Agentic Systems"
+    color: "#FF6B6B"
+    description: "Agentic AI systems, autonomous agents, multi-agent frameworks, tool use, and related security concerns"
+    keywords:
+      - "agentic AI"
+      - "agent"
+      - "autonomous agent"
+      - "multi-agent"
+      - "agent framework"
+      - "tool calling"
+      - "function calling"
+    priority: "high"
+    frequency_indicator: "primary"
+
+  prompt_injection:
+    id: "prompt_injection"
+    display_name: "Prompt Injection"
+    color: "#FF8E72"
+    description: "Prompt injection attacks, jailbreaks, adversarial prompts, indirect injection, context poisoning"
+    keywords:
+      - "prompt injection"
+      - "jailbreak"
+      - "adversarial prompt"
+      - "indirect injection"
+      - "context poisoning"
+      - "instruction injection"
+    priority: "high"
+    frequency_indicator: "primary"
+
+  hitl:
+    id: "hitl"
+    display_name: "HITL & Kill-Switch"
+    color: "#FFA07A"
+    description: "Human-in-the-loop design, approval workflows, kill switches, circuit breakers, human oversight"
+    keywords:
+      - "HITL"
+      - "human-in-the-loop"
+      - "human oversight"
+      - "approval workflow"
+      - "kill switch"
+      - "circuit breaker"
+      - "human review"
+    priority: "high"
+    frequency_indicator: "primary"
+
+  observability:
+    id: "observability"
+    display_name: "Observability & Logging"
+    color: "#FFB347"
+    description: "Logging, tracing, monitoring, audit trails, tool call tracking, memory access logging, execution tracing"
+    keywords:
+      - "observability"
+      - "logging"
+      - "audit trail"
+      - "tracing"
+      - "monitoring"
+      - "tool call tracking"
+      - "memory logging"
+    priority: "high"
+    frequency_indicator: "primary"
+
+  shadow_ai:
+    id: "shadow_ai"
+    display_name: "Shadow AI & Governance"
+    color: "#FFDAB9"
+    description: "Shadow AI detection, rogue models, governance, asset inventory, model registry, drift detection"
+    keywords:
+      - "shadow AI"
+      - "rogue AI"
+      - "governance"
+      - "model registry"
+      - "asset inventory"
+      - "drift detection"
+      - "unauthorized model"
+    priority: "high"
+    frequency_indicator: "primary"
+
+  data_leakage:
+    id: "data_leakage"
+    display_name: "Data Leakage"
+    color: "#FFD700"
+    description: "Data exfiltration, information disclosure, privacy breaches, PII exposure"
+    keywords:
+      - "data exfiltration"
+      - "data leakage"
+      - "information disclosure"
+      - "privacy breach"
+      - "PII exposure"
+      - "confidentiality"
+    priority: "secondary"
+    frequency_indicator: "common"
+
+  model_supply_chain:
+    id: "model_supply_chain"
+    display_name: "Model Supply Chain"
+    color: "#FFED4E"
+    description: "Model poisoning, pre-trained model security, fine-tuning attacks, checkpoint integrity, supply chain attacks"
+    keywords:
+      - "model supply chain"
+      - "model poisoning"
+      - "pre-trained model"
+      - "fine-tuning"
+      - "checkpoint integrity"
+      - "supply chain"
+    priority: "secondary"
+    frequency_indicator: "common"
+
+  vuln_exploit:
+    id: "vuln_exploit"
+    display_name: "Vulnerability / Exploit"
+    color: "#ADFF2F"
+    description: "Vulnerabilities, exploits, CVEs, security patches, 0-days, critical flaws"
+    keywords:
+      - "vulnerability"
+      - "exploit"
+      - "CVE"
+      - "0-day"
+      - "security patch"
+      - "critical flaw"
+    priority: "secondary"
+    frequency_indicator: "common"
+
+  regulatory:
+    id: "regulatory"
+    display_name: "Regulatory / Policy"
+    color: "#90EE90"
+    description: "Regulatory compliance, standards (NIST, EU AI Act, OSFI), policy changes, governance frameworks"
+    keywords:
+      - "regulatory"
+      - "compliance"
+      - "NIST"
+      - "EU AI Act"
+      - "OSFI"
+      - "policy"
+      - "governance"
+      - "standards"
+    priority: "secondary"
+    frequency_indicator: "common"

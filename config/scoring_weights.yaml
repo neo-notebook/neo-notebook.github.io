@@ -1,0 +1,301 @@
+# Scoring Weights Configuration
+# Multi-dimensional scoring system for content relevance, credibility, and impact
+
+# Dimension Weights (total = 1.0)
+dimensions:
+  relevance:
+    weight: 0.35
+    description: "Relevance to priority topics (agentic security, prompt injection, HITL, observability, shadow AI)"
+
+  credibility:
+    weight: 0.25
+    description: "Source credibility and research quality"
+
+  impact:
+    weight: 0.15
+    description: "Major incidents, exploited vulnerabilities, platform changes"
+
+  freshness:
+    weight: 0.15
+    description: "How recent the content is"
+
+  practicality:
+    weight: 0.10
+    description: "Actionable defender insights and mitigations"
+
+# Topical Relevance Keywords and Weights
+topical_relevance:
+  high_priority_topics:
+    agentic_systems:
+      weight: 1.0
+      keywords:
+        - "agent"
+        - "agentic AI"
+        - "tool use"
+        - "function calling"
+        - "autonomous agents"
+        - "tool injection"
+        - "multi-agent"
+        - "agent framework"
+
+    prompt_injection:
+      weight: 1.0
+      keywords:
+        - "prompt injection"
+        - "jailbreak"
+        - "adversarial prompts"
+        - "indirect injection"
+        - "context poisoning"
+        - "prompt attack"
+        - "instruction injection"
+
+    hitl_design:
+      weight: 1.0
+      keywords:
+        - "HITL"
+        - "human-in-the-loop"
+        - "human oversight"
+        - "kill switch"
+        - "circuit breaker"
+        - "approval workflow"
+        - "human review"
+
+    observability:
+      weight: 1.0
+      keywords:
+        - "observability"
+        - "logging"
+        - "tracing"
+        - "monitoring"
+        - "audit trail"
+        - "tool call tracking"
+        - "memory access logging"
+        - "execution tracing"
+
+    shadow_ai:
+      weight: 1.0
+      keywords:
+        - "shadow AI"
+        - "rogue AI"
+        - "unauthorized model"
+        - "governance"
+        - "model registry"
+        - "asset inventory"
+        - "drift detection"
+
+    data_leakage:
+      weight: 0.9
+      keywords:
+        - "data exfiltration"
+        - "data leakage"
+        - "information disclosure"
+        - "privacy breach"
+        - "PII exposure"
+
+    model_supply_chain:
+      weight: 0.9
+      keywords:
+        - "model supply chain"
+        - "model poisoning"
+        - "pre-trained model"
+        - "fine-tuning security"
+        - "checkpoint integrity"
+        - "dependency attack"
+
+    ai_safety:
+      weight: 0.8
+      keywords:
+        - "AI safety"
+        - "alignment"
+        - "robustness"
+        - "red teaming"
+        - "adversarial robustness"
+
+  secondary_topics:
+    vuln_exploit:
+      weight: 0.7
+      keywords:
+        - "vulnerability"
+        - "exploit"
+        - "CVE"
+        - "security patch"
+        - "0-day"
+        - "critical flaw"
+
+    regulatory:
+      weight: 0.7
+      keywords:
+        - "regulatory"
+        - "compliance"
+        - "NIST"
+        - "EU AI Act"
+        - "OSFI"
+        - "policy"
+        - "governance"
+
+    general_security:
+      weight: 0.5
+      keywords:
+        - "cybersecurity"
+        - "defense"
+        - "mitigation"
+        - "incident response"
+        - "threat"
+
+# Credibility Tiers
+credibility_tiers:
+  high:
+    score: 1.0
+    sources:
+      - "NIST"
+      - "CISA"
+      - "NSA"
+      - "EU standards"
+      - "Academic conferences"
+      - "arXiv papers"
+      - "Anthropic Research"
+      - "Google DeepMind"
+      - "OpenAI Research"
+      - "OWASP"
+    description: "Standards bodies, academic institutions, reputable research organizations"
+
+  medium:
+    score: 0.7
+    sources:
+      - "Established security publications"
+      - "Corporate research labs"
+      - "Security conferences"
+      - "Reputable security blogs"
+    description: "Well-established publications with editorial oversight"
+
+  low:
+    score: 0.4
+    sources:
+      - "Individual blogs"
+      - "Marketing content"
+      - "Unverified reports"
+    description: "Use sparingly; requires strong topical relevance"
+
+# Freshness Decay
+freshness:
+  # Score decay over time (in days)
+  # Formula: score * (1 - decay_rate * days_old)
+
+  decay_rate: 0.01  # 1% decay per day
+
+  freshness_tiers:
+    very_fresh:
+      days_old_max: 7
+      multiplier: 1.0
+      description: "Published within last week"
+
+    fresh:
+      days_old_max: 30
+      multiplier: 0.95
+      description: "Published within last month"
+
+    recent:
+      days_old_max: 90
+      multiplier: 0.85
+      description: "Published within last 3 months"
+
+    dated:
+      days_old_max: 365
+      multiplier: 0.60
+      description: "Published within last year"
+
+    archive:
+      days_old_max: null
+      multiplier: 0.30
+      description: "Older content (evergreen only)"
+
+# Practicality (Defender Insights)
+practicality:
+  high:
+    score: 1.0
+    indicators:
+      - "Concrete mitigations provided"
+      - "Step-by-step defense guidance"
+      - "Code examples or configs"
+      - "Attack surface analysis"
+      - "Detection mechanisms"
+      - "Postmortem with lessons learned"
+
+  medium:
+    score: 0.7
+    indicators:
+      - "General best practices"
+      - "Risk assessment"
+      - "Partial mitigation guidance"
+      - "Lessons identified"
+
+  low:
+    score: 0.3
+    indicators:
+      - "Theoretical discussion only"
+      - "No actionable insights"
+      - "Vendor marketing focus"
+
+# Impact Scoring
+impact:
+  major_incident:
+    score: 1.0
+    keywords:
+      - "breach affecting 1M+ users"
+      - "critical infrastructure"
+      - "regulatory action"
+      - "exploited in the wild"
+      - "platform-wide vulnerability"
+
+  significant_event:
+    score: 0.7
+    keywords:
+      - "affects enterprise tools"
+      - "widely-used model"
+      - "significant capability change"
+      - "major platform update"
+
+  notable:
+    score: 0.4
+    keywords:
+      - "industry-specific impact"
+      - "research validation"
+      - "proof of concept"
+
+# Constraint Configuration
+constraints:
+  # Diversity: prevent single publisher domination
+  diversity:
+    enabled: true
+    max_items_per_source_per_day: 3
+    max_items_per_source_per_week: 10
+    description: "Ensure diverse sources in final output"
+
+  # Deduplication: detect and group syndicated copies
+  deduplication:
+    enabled: true
+    similarity_threshold: 0.85
+    method: "semantic_similarity"
+    description: "Merge highly similar articles, rank by credibility"
+
+  # Clustering: group similar stories
+  clustering:
+    enabled: true
+    method: "semantic"
+    min_cluster_size: 2
+    description: "Group related stories for thematic analysis"
+
+# Scoring Thresholds (for filtering)
+thresholds:
+  minimum_score_for_inclusion: 0.35
+  score_for_manual_review: 0.30
+  score_for_exclusion: 0.20
+  description: "Items below minimum are excluded; between minimum and manual_review are reviewed"
+
+# Output Ranking
+ranking:
+  primary_sort: "composite_score"
+  secondary_sort: "freshness"
+  tertiary_sort: "impact"
+  max_daily_items: 20
+  max_weekly_items: 100
