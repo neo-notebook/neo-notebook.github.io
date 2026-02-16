@@ -28,7 +28,7 @@ def test_http_client_sets_user_agent():
     assert "AI-Security-Intelligence" in client.headers["User-Agent"]
 
 
-@patch('requests.get')
+@patch('src.utils.http_client.requests.Session.get')
 def test_http_client_fetch_with_timeout(mock_get):
     """Test that HTTP client respects timeout."""
     mock_response = Mock()
