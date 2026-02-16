@@ -1,0 +1,5 @@
+body { font-family: system-ui, sans-serif; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+header { border-bottom: 1px solid #e0e0e0; margin-bottom: 2rem; }
+h1 { color: #2c3e50; }
+h2 { color: #34495e; }
+#brief-items { margin-top: 2rem; }

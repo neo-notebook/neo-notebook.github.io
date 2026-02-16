@@ -1,0 +1,26 @@
+name: Daily Intelligence Pipeline
+
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install --upgrade pip && pip install -r requirements.txt
+      - run: python src/main.py --mode daily
+        env:
+          PYTHONUNBUFFERED: 1
+      - run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/public/data/ docs/public/index.html || true
+          git diff --staged --quiet || git commit -m "chore: Daily brief update"
+          git push || true
