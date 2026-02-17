@@ -1,0 +1,79 @@
+name: Weekly Intelligence Artifacts
+
+on:
+  schedule:
+    # Sunday 9:00 AM America/Edmonton (15:00 UTC)
+    - cron: '0 15 * * 0'
+  workflow_dispatch:
+
+jobs:
+  weekly-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Generate weekly artifacts
+        run: |
+          python3 -c "
+          import json
+          import glob
+          from datetime import datetime, timedelta
+          from pathlib import Path
+          from src.outputs.json_generator import JSONGenerator
+          from src.outputs.pdf_generator import PDFGenerator
+          from src.outputs.linkedin_drafts import LinkedInDrafts
+          from src.outputs.presentation_points import PresentationPoints
+
+          # Load last 30 days of data
+          thirty_days_ago = datetime.now() - timedelta(days=30)
+          all_items = []
+
+          for feed_file in sorted(glob.glob('private/feeds/*.json')):
+              try:
+                  with open(feed_file) as f:
+                      data = json.load(f)
+                      all_items.extend(data.get('items', []))
+              except Exception as e:
+                  print(f'Error loading {feed_file}: {e}')
+
+          print(f'Loaded {len(all_items)} items from last 30 days')
+
+          # Generate weekly outputs
+          today = datetime.now().strftime('%Y-%m-%d')
+
+          # 1. Weekly PDF brief
+          pdf_gen = PDFGenerator()
+          pdf_gen.generate_weekly_brief(all_items[:50], f'private/artifacts/weekly_brief_{today}.pdf')
+
+          # 2. LinkedIn drafts
+          linkedin = LinkedInDrafts()
+          linkedin.generate_drafts(all_items[:10], f'private/artifacts/linkedin_drafts_{today}.json')
+
+          # 3. Presentation points
+          presentation = PresentationPoints()
+          presentation.generate_points(all_items, f'private/artifacts/presentation_points_{today}.json')
+
+          # 4. Trends dashboard
+          json_gen = JSONGenerator()
+          json_gen.generate_trends(all_items, 'docs/public/data/trends_30d.json', days=30)
+
+          print('Weekly artifacts generated successfully')
+          "
+        env:
+          PYTHONUNBUFFERED: 1
+
+      - name: Commit and push outputs
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/public/data/trends_30d.json || true
+          git diff --staged --quiet || git commit -m "chore: Weekly artifacts update"
+          git push || true
