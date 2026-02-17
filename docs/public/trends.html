@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trends - AI Security Intelligence</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>AI Security Intelligence</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Daily Brief</a></li>
+                <li><a href="learning.html">Learning Resources</a></li>
+                <li><a href="trends.html">Trends</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>30-Day Trends</h2>
+        <div id="trends-data">Loading...</div>
+    </main>
+    <footer>
+        <p>Generated with Claude Code | AI Security Intelligence Engine</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('data/trends_30d.json');
+                const data = await response.json();
+                
+                let html = '<h3>Top Clusters</h3><ul>';
+                data.top_clusters?.slice(0, 5).forEach(c => {
+                    html += `<li>${c.cluster}: ${c.count} articles</li>`;
+                });
+                html += '</ul><h3>Top Sources</h3><ul>';
+                data.top_sources?.slice(0, 5).forEach(s => {
+                    html += `<li>${s.source}: ${s.count} articles</li>`;
+                });
+                html += '</ul><h3>Opportunities</h3><ul>';
+                data.opportunities?.forEach(o => {
+                    html += `<li>${o.opportunity}</li>`;
+                });
+                html += '</ul>';
+                
+                document.getElementById('trends-data').innerHTML = html;
+            } catch (error) {
+                document.getElementById('trends-data').textContent = 'No trends data available yet.';
+            }
+        });
+    </script>
+</body>
+</html>
