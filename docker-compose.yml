@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Main pipeline service
+  pipeline:
+    build: .
+    container_name: ai-security-pipeline
+    volumes:
+      # Mount config for easy editing
+      - ./config:/app/config
+      # Mount private outputs (visible on host)
+      - ./private:/app/private
+      # Mount public outputs
+      - ./docs/public:/app/docs/public
+    environment:
+      - PYTHONUNBUFFERED=1
+      - OLLAMA_URL=http://ollama:11434
+    depends_on:
+      - ollama
+    networks:
+      - ai-security-net
+
+  # Optional: Ollama for LLM summarization
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-security-ollama
+    volumes:
+      - ollama-data:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - ai-security-net
+    # Pull model on startup
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        ollama serve &
+        sleep 5
+        ollama pull llama3.2
+        wait
+
+  # Simple web server to view GitHub Pages site
+  webserver:
+    image: nginx:alpine
+    container_name: ai-security-web
+    volumes:
+      - ./docs/public:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+    networks:
+      - ai-security-net
+
+networks:
+  ai-security-net:
+    driver: bridge
+
+volumes:
+  ollama-data:
